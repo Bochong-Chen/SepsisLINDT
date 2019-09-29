@@ -30,11 +30,13 @@ public class ConnectionService {
     private volatile BluetoothDevice bioHarnessDevice;
     private BioHarnessListener bioHarnessListener;
     private BTClient bioHarnessClient;
+    private boolean bioHarnessConnected = false;
 
     private volatile BluetoothDevice spo2Device;
     private volatile BluetoothSocket spo2Socket;
     volatile InputStream spo2InputStream;
     volatile OutputStream spo2OutputStream;
+    private boolean spo2Connected = false;
 
 
     ConnectionService() {
@@ -43,7 +45,7 @@ public class ConnectionService {
         pairedDevices = adapter.getBondedDevices();
     }
 
-    private boolean connectBioHarness(Handler bioHarnessHandler) {
+    public boolean connectBioHarness(Handler bioHarnessHandler) {
         pairedDevices = adapter.getBondedDevices();
         bioHarnessDevice = null;
         if (pairedDevices.size() > 0) {
@@ -69,7 +71,7 @@ public class ConnectionService {
         return true;
     }
 
-    private boolean connectSpo2(Handler spo2Handler) {
+    public boolean connectSpo2(Handler spo2Handler) {
         pairedDevices = adapter.getBondedDevices();
         spo2Device = null;
         if (pairedDevices.size() > 0) {
@@ -97,5 +99,21 @@ public class ConnectionService {
             return false;
         }
         return true;
+    }
+
+    public boolean isBioHarnessConnected() {
+        return bioHarnessConnected;
+    }
+
+    public void setBioHarnessConnected(boolean bioHarnessConnected) {
+        this.bioHarnessConnected = bioHarnessConnected;
+    }
+
+    public boolean isSpo2Connected() {
+        return spo2Connected;
+    }
+
+    public void setSpo2Connected(boolean spo2Connected) {
+        this.spo2Connected = spo2Connected;
     }
 }

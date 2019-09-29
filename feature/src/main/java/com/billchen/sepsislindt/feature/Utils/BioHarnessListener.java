@@ -4,12 +4,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.billchen.sepsislindt.feature.BeanManager;
+import com.billchen.sepsislindt.feature.Service.ConnectionService;
+
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import zephyr.android.BioHarnessBT.*;
 
-public class BioHarnessListener extends ConnectListenerImpl
-{
+public class BioHarnessListener extends ConnectListenerImpl {
+
+    private static Logger logger = Logger.getLogger("BioHarnessListener");
+    private ConnectionService connectionService;
+
     private Handler handler;
     final int GP_MSG_ID = 0x20;
     final int BREATHING_MSG_ID = 0x21;
@@ -40,7 +47,9 @@ public class BioHarnessListener extends ConnectListenerImpl
     public BioHarnessListener(Handler handler) {
         super(handler, null);
         this.handler = handler;
+        this.connectionService = BeanManager.getBean(ConnectionService.class);
     }
+
     public void Connected(ConnectedEvent<BTClient> eventArgs) {
         System.out.println(String.format("Connected to BioHarness %s.", eventArgs.getSource().getDevice().getName()));
         /*Use this object to enable or disable the different Packet types*/

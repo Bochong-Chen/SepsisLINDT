@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.billchen.sepsislindt.feature.BeanManager;
+import com.billchen.sepsislindt.feature.Service.ConnectionService;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +19,7 @@ import java.util.logging.Logger;
 public class Spo2Listener {
 
     private static Logger logger = Logger.getLogger("Spo2Listener");
+    private ConnectionService connectionService;
 
     private ScheduledExecutorService generalPurposeExecutor = null;     // runs ResetTask and StopDataTask
     private ScheduledExecutorService readDataExecutor = null;           // runs and re-runs StartDataTask in an indefinite loop
@@ -31,6 +35,7 @@ public class Spo2Listener {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         spo2Handler = handler;
+        this.connectionService = BeanManager.getBean(ConnectionService.class);
         startData();
     }
 
