@@ -27,6 +27,4 @@ android {
 dependencies {
     implementation project(':feature')
     implementation project(':base')
-    implementation files('/Users/BillChen/Documents/SepsisLINDT/feature/libs/BioHarnessBT.jar')
-    implementation files('/Users/BillChen/Documents/SepsisLINDT/feature/libs/javaoscfull.jar')
 }
