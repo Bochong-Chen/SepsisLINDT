@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.billchen.spesislindt.BeanManager;
 import com.billchen.spesislindt.Service.ConnectionService;
 
 import java.util.Arrays;
@@ -47,7 +46,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
     public BioHarnessListener(Handler handler) {
         super(handler, null);
         this.handler = handler;
-        this.connectionService = BeanManager.getBean(ConnectionService.class);
+        this.connectionService = ConnectionService.getInstance();
     }
 
     public void Connected(ConnectedEvent<BTClient> eventArgs) {

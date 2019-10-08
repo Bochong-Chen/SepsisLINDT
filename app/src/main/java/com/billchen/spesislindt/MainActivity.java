@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
         RespText = findViewById(R.id.RespText);
         SpO2Text = findViewById(R.id.SpO2Text);
 
-        //Obtain the service class (service class should all be singleton)
-        this.connectionService = BeanManager.getBean(ConnectionService.class);
+        this.connectionService = ConnectionService.getInstance();
 
         //Attach listener to SPO2 Pulse Oximeter
         if (Spo2_Button != null) {

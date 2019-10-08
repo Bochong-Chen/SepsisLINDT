@@ -20,6 +20,8 @@ import zephyr.android.BioHarnessBT.BTClient;
 
 public class ConnectionService {
 
+    private static ConnectionService instance = null;
+
     private static Logger logger = Logger.getLogger("ConnectionService");
 
     private String bioHarnessMacID;
@@ -38,13 +40,24 @@ public class ConnectionService {
     private boolean spo2Connected = false;
 
 
-    ConnectionService() {
+    private ConnectionService() {
         bioHarnessMacID = "00:07:80:9D:8A:E8";
         adapter = BluetoothAdapter.getDefaultAdapter();
         pairedDevices = adapter.getBondedDevices();
     }
 
+    public static ConnectionService getInstance() {
+        if (instance == null) {
+            instance = new ConnectionService();
+        }
+        return instance;
+    }
+
     public boolean connectBioHarness(Handler bioHarnessHandler) {
+        if (adapter == null) {
+            logger.log(Level.INFO, "This device doesn't support bluetooth");
+            return false;
+        }
         pairedDevices = adapter.getBondedDevices();
         bioHarnessDevice = null;
         if (pairedDevices.size() > 0) {
@@ -71,6 +84,10 @@ public class ConnectionService {
     }
 
     public boolean connectSpo2(Handler spo2Handler) {
+        if (adapter == null) {
+            logger.log(Level.INFO, "This device doesn't support bluetooth");
+            return false;
+        }
         pairedDevices = adapter.getBondedDevices();
         spo2Device = null;
         if (pairedDevices.size() > 0) {

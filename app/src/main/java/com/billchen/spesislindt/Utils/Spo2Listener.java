@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.billchen.spesislindt.BeanManager;
 import com.billchen.spesislindt.Service.ConnectionService;
 
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class Spo2Listener {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         spo2Handler = handler;
-        this.connectionService = BeanManager.getBean(ConnectionService.class);
+        this.connectionService = ConnectionService.getInstance();
         startData();
     }
 

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SepsisDetection</string>
-    <string name="Spo2">Spo2</string>
     <string name="Bioharness">Bioharness</string>
+    <string name="SpO2">SpO2</string>
 </resources>

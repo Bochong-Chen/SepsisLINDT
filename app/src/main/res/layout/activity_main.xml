@@ -16,7 +16,7 @@
         android:layout_marginStart="74dp"
         android:layout_marginLeft="74dp"
         android:layout_marginTop="-95dp"
-        android:text="@string/Spo2" />
+        android:text="@string/SpO2" />
 
     <Button
         android:id="@+id/bioharness_button"
