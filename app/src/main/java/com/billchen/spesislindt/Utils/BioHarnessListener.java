@@ -43,6 +43,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
     private SummaryPacketInfo SummaryInfoPacket = new SummaryPacketInfo();
 
     private PacketTypeRequest RqPacketType = new PacketTypeRequest();
+
     public BioHarnessListener(Handler handler) {
         super(handler, null);
         this.handler = handler;
