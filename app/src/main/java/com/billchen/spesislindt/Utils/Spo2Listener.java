@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.billchen.spesislindt.Handlers.HandlerCode;
 import com.billchen.spesislindt.Service.ConnectionService;
 
 import java.io.IOException;
@@ -81,8 +82,6 @@ public class Spo2Listener {
         private OutputStream outputStream;
         private Handler spo2Handler;
 
-        private final int spo2 = 0x127;
-
         private static final int BIT_0 = 1;
         private static final int BIT_1 = 2;
         private static final int BIT_2 = 4;
@@ -114,7 +113,7 @@ public class Spo2Listener {
 
                 while (true) {
                     final DataFrame dataframe = getNextDataFrame(inputStream);
-                    Message msg = spo2Handler.obtainMessage(spo2);
+                    Message msg = spo2Handler.obtainMessage(HandlerCode.Spo2.ordinal());
                     Bundle b1 = new Bundle();
                     b1.putLong("time",dataframe.time);
                     b1.putInt("pulse", dataframe.pulseWaveForm);

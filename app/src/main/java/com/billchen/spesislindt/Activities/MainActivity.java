@@ -1,4 +1,4 @@
-package com.billchen.spesislindt;
+package com.billchen.spesislindt.Activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 
 import com.billchen.spesislindt.Handlers.BioharnessHandler;
 import com.billchen.spesislindt.Handlers.SpO2Handler;
+import com.billchen.spesislindt.R;
 import com.billchen.spesislindt.Service.ConnectionService;
 import com.billchen.spesislindt.databinding.ActivityMainBinding;
 

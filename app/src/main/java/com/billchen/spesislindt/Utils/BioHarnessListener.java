@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.billchen.spesislindt.Handlers.HandlerCode;
 import com.billchen.spesislindt.Service.ConnectionService;
 
 import java.util.Arrays;
@@ -17,23 +18,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
     private ConnectionService connectionService;
 
     private Handler handler;
-    final int GP_MSG_ID = 0x20;
-    final int BREATHING_MSG_ID = 0x21;
-    final int ECG_MSG_ID = 0x22;
-    final int RtoR_MSG_ID = 0x24;
-    final int ACCEL_100mg_MSG_ID = 0x2A;
-    final int SUMMARY_MSG_ID = 0x2B;
 
-
-    private int GP_HANDLER_ID = 0x20;
-
-    private final int HEART_RATE = 0x100;
-    private final int RESPIRATION_RATE = 0x101;
-    private final int SKIN_TEMPERATURE = 0x102;
-    private final int POSTURE = 0x103;
-    private final int PEAK_ACCLERATION = 0x104;
-    private final int BREATHING_RAW = 0x105;
-    private final int ECG = 0x106;
     /*Creating the different Objects for different types of Packets*/
     private GeneralPacketInfo GPInfo = new GeneralPacketInfo();
     private ECGPacketInfo ECGInfoPacket = new ECGPacketInfo();
@@ -76,13 +61,14 @@ public class BioHarnessListener extends ConnectListenerImpl {
                 RcvdBytes = msg.getNumRvcdBytes() ;
                 int MsgID = msg.getMsgID();
                 byte [] DataArray = msg.getBytes();
-                switch (MsgID)
+                HandlerCode code = HandlerCode.get(MsgID);
+                switch (code)
                 {
 
                     case GP_MSG_ID:
                         //***************Displaying the Heart Rate********************************
                         int HRate =  GPInfo.GetHeartRate(DataArray);
-                        Message HRate_msg = handler.obtainMessage(HEART_RATE);
+                        Message HRate_msg = handler.obtainMessage(HandlerCode.HEART_RATE.ordinal());
                         Bundle HR_bundle = new Bundle();
                         HR_bundle.putInt("HeartRate", HRate);
                         HRate_msg.setData(HR_bundle);
@@ -92,7 +78,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
 
                         //***************Displaying the Respiration Rate********************************
                         double RespRate = GPInfo.GetRespirationRate(DataArray);
-                        Message text1 = handler.obtainMessage(RESPIRATION_RATE);
+                        Message text1 = handler.obtainMessage(HandlerCode.RESPIRATION_RATE.ordinal());
                         Bundle b1 = new Bundle();
                         b1.putDouble("RespirationRate", RespRate);
                         text1.setData(b1);
@@ -104,7 +90,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
 
 
                         double SkinTempDbl = GPInfo.GetSkinTemperature(DataArray);
-                        text1 = handler.obtainMessage(SKIN_TEMPERATURE);
+                        text1 = handler.obtainMessage(HandlerCode.SKIN_TEMPERATURE.ordinal());
                         //Bundle b1 = new Bundle();
                         b1.putString("SkinTemperature", String.valueOf(SkinTempDbl));
                         text1.setData(b1);
@@ -114,7 +100,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
                         //***************Displaying the Posture******************************************
 
                         int PostureInt = GPInfo.GetPosture(DataArray);
-                        text1 = handler.obtainMessage(POSTURE);
+                        text1 = handler.obtainMessage(HandlerCode.POSTURE.ordinal());
                         b1.putString("Posture", String.valueOf(PostureInt));
                         text1.setData(b1);
                         handler.sendMessage(text1);
@@ -122,7 +108,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
                         //***************Displaying the Peak Acceleration******************************************
 
                         double PeakAccDbl = GPInfo.GetPeakAcceleration(DataArray);
-                        text1 = handler.obtainMessage(PEAK_ACCLERATION);
+                        text1 = handler.obtainMessage(HandlerCode.PEAK_ACCLERATION.ordinal());
                         b1.putString("PeakAcceleration", String.valueOf(PeakAccDbl));
                         text1.setData(b1);
                         handler.sendMessage(text1);
@@ -134,7 +120,7 @@ public class BioHarnessListener extends ConnectListenerImpl {
                         break;
                     case BREATHING_MSG_ID:
                         short[] breathingRaw =  BreathingInfoPacket.GetBreathingSamples(DataArray);
-                        Message text5 = handler.obtainMessage(BREATHING_RAW);
+                        Message text5 = handler.obtainMessage(HandlerCode.BREATHING_RAW.ordinal());
                         Bundle b5 = new Bundle();
                         b5.putShortArray("BreathingRaw", breathingRaw);
                         text5.setData(b5);
