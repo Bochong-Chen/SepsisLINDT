@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".Activities.MeasureActivity">
+
+        <ScrollView
+            android:id="@+id/scrollView_Activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinner_HeartRate"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/heart_rate_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_Logo" />
+
+                <Spinner
+                    android:id="@+id/spinner_RespiratoryRate"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/respiratory_rate_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_HeartRate" />
+
+                <Spinner
+                    android:id="@+id/spinner_Temperature"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/temperature_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_RespiratoryRate" />
+
+                <Spinner
+                    android:id="@+id/spinner_SystolicPressure"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/systolic_pressure_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_Temperature" />
+
+                <Spinner
+                    android:id="@+id/spinner_DiastolicPressure"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/diastolic_pressure_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_SystolicPressure" />
+
+                <Spinner
+                    android:id="@+id/spinner_SpO2"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:entries="@array/spo2_options"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_DiastolicPressure" />
+
+                <ImageView
+                    android:id="@+id/imageView_Logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo_simple" />
+
+                <ImageView
+                    android:id="@+id/imageView_Brand"
+                    android:layout_width="266dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_Logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/brand" />
+
+                <TextView
+                    android:id="@+id/textView_HeartRate"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Heart Rate"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_Logo" />
+
+                <EditText
+                    android:id="@+id/editText_HeartRate"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/spinner_HeartRate"
+                    app:layout_constraintStart_toEndOf="@+id/textView_HeartRate"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_Logo" />
+
+                <EditText
+                    android:id="@+id/editText_RespiratoryRate"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_HeartRate"
+                    app:layout_constraintStart_toStartOf="@+id/editText_HeartRate"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_HeartRate" />
+
+                <EditText
+                    android:id="@+id/editText_Temperature"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_RespiratoryRate"
+                    app:layout_constraintStart_toStartOf="@+id/editText_RespiratoryRate"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_RespiratoryRate" />
+
+                <EditText
+                    android:id="@+id/editText_SystolicPressure"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_Temperature"
+                    app:layout_constraintStart_toStartOf="@+id/editText_Temperature"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_Temperature" />
+
+                <EditText
+                    android:id="@+id/editText_DiastolicPressure"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_SystolicPressure"
+                    app:layout_constraintStart_toStartOf="@+id/editText_SystolicPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_SystolicPressure" />
+
+                <EditText
+                    android:id="@+id/editText_SpO2"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="13dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:selectAllOnFocus="false"
+                    android:text="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_DiastolicPressure"
+                    app:layout_constraintStart_toStartOf="@+id/editText_DiastolicPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/editText_DiastolicPressure" />
+
+                <TextView
+                    android:id="@+id/textView_RespiratoryRate"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Respiratory Rate"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_HeartRate"
+                    app:layout_constraintStart_toStartOf="@+id/textView_HeartRate"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_HeartRate" />
+
+                <TextView
+                    android:id="@+id/textView_Temperature"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Temperature"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_RespiratoryRate"
+                    app:layout_constraintStart_toStartOf="@+id/textView_RespiratoryRate"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_RespiratoryRate" />
+
+                <TextView
+                    android:id="@+id/textView_SystolicPressure"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Systolic Pressure"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_Temperature"
+                    app:layout_constraintStart_toStartOf="@+id/textView_Temperature"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_Temperature" />
+
+                <TextView
+                    android:id="@+id/textView_DiastolicPressure"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Diastolic Pressure"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_SystolicPressure"
+                    app:layout_constraintStart_toStartOf="@+id/textView_SystolicPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_SystolicPressure" />
+
+                <TextView
+                    android:id="@+id/textView_SpO2"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="SpO2"
+                    android:textColor="#8AB6E9"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_DiastolicPressure"
+                    app:layout_constraintStart_toStartOf="@+id/textView_DiastolicPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_DiastolicPressure" />
+
+                <Button
+                    android:id="@+id/button_PulseOximeter"
+                    android:layout_width="140dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="#8AB6E9"
+                    android:text="PULSE OXIMETER"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_SpO2" />
+
+                <Button
+                    android:id="@+id/button_ChestStrap"
+                    android:layout_width="140dp"
+                    android:layout_height="63dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#8AB6E9"
+                    android:text="CHEST       STRAP"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_SpO2" />
+
+                <Button
+                    android:id="@+id/button_FlashCamera"
+                    android:layout_width="140dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#8AB6E9"
+                    android:text="FLASH       CAMERA"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/button_ChestStrap"
+                    app:layout_constraintStart_toStartOf="@+id/button_ChestStrap"
+                    app:layout_constraintTop_toBottomOf="@+id/button_ChestStrap" />
+
+                <Button
+                    android:id="@+id/button_BloodPressure"
+                    android:layout_width="140dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#8AB6E9"
+                    android:text="BLOOD PRESSURE"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/button_FlashCamera"
+                    app:layout_constraintStart_toStartOf="@+id/button_FlashCamera"
+                    app:layout_constraintTop_toBottomOf="@+id/button_FlashCamera" />
+
+                <Button
+                    android:id="@+id/button_Microphone"
+                    android:layout_width="140dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#8AB6E9"
+                    android:text="MICRO       PHONE"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/button_PulseOximeter"
+                    app:layout_constraintStart_toStartOf="@+id/button_PulseOximeter"
+                    app:layout_constraintTop_toBottomOf="@+id/button_PulseOximeter" />
+
+                <Button
+                    android:id="@+id/button_DisplayResults"
+                    android:layout_width="0dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="#8AB6E9"
+                    android:text="DISPLAY RESULTS"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/button_IR"
+                    app:layout_constraintStart_toStartOf="@+id/button_IR"
+                    app:layout_constraintTop_toBottomOf="@+id/button_IR"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/button_MeasureResults"
+                    android:layout_width="0dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#8AB6E9"
+                    android:text="MEASURE RESULTS"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/button_BloodPressure"
+                    app:layout_constraintStart_toStartOf="@+id/button_BloodPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/button_BloodPressure" />
+
+                <Button
+                    android:id="@+id/button_IR"
+                    android:layout_width="0dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#8AB6E9"
+                    android:text="IR Camera"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/button_Microphone"
+                    app:layout_constraintStart_toStartOf="@+id/button_Microphone"
+                    app:layout_constraintTop_toBottomOf="@+id/button_Microphone" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

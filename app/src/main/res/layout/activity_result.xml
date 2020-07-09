@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".Activities.ResultActivity">
+
+        <ImageView
+            android:id="@+id/imageView_Logo"
+            android:layout_width="266dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_Brand"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/brand" />
+
+        <ImageView
+            android:id="@+id/imageView_Brand"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_simple" />
+
+        <TextView
+            android:id="@+id/textView_Result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="168dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="168dp"
+            android:text="Result"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView_Brand"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_Logo" />
+
+        <ScrollView
+            android:layout_width="410dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Result">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/hr_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/resp_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/sys_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/dias_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/spo2_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/temp_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+
+            </LinearLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
