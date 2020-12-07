@@ -10,7 +10,6 @@ import android.view.SurfaceHolder;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -113,7 +112,7 @@ public class CameraActivity extends AppCompatActivity {
     //such as screen orientation, keyboard availability, and language
 
     @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 

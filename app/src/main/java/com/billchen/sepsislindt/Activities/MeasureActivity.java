@@ -60,8 +60,11 @@ public class MeasureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure);
 
+        // set up data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_measure);
 
+        // TODO: the data is not encrypted
+        // get stored login info
         sharedPref = this.getSharedPreferences(
                 "user", Context.MODE_PRIVATE
         );
@@ -69,12 +72,15 @@ public class MeasureActivity extends AppCompatActivity {
         dataDatabase = DataDatabase.getInstance(this);
         dataDao = dataDatabase.dataDao();
 
+        // service that connects all the devices
         this.connectionService = ConnectionService.getInstance();
 
+        // connect pulse Oximeter when button clicked
         if (binding.buttonPulseOximeter != null) {
             binding.buttonPulseOximeter.setOnClickListener(v -> {
+                // TODO: should not provide handler on this side
                 boolean success = connectionService.connectSpo2(SPO2Handler);
-                //TODO: Make better connection handles
+                // TODO: Make better connection handles
                 if (success) {
                     logger.log(Level.INFO, "SpO2 connection success.");
                 } else {
@@ -83,10 +89,12 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // connect bioharness when button clicked
         if (binding.buttonChestStrap != null) {
             binding.buttonChestStrap.setOnClickListener(v -> {
+                // TODO: should not provide handler on this side
                 boolean success = connectionService.connectBioHarness(BHHandler);
-                //TODO: Make better connection handles
+                // TODO: Make better connection handles
                 if (success) {
                     logger.log(Level.INFO, "BioHarness connection success.");
                 } else {
@@ -95,9 +103,12 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // connect blood pressure cuff when button clicked
         if (binding.buttonBloodPressure != null) {
             binding.buttonBloodPressure.setOnClickListener(v -> {
+                // TODO: should not provide handler on this side
                 boolean success = connectionService.connectBloodPressure(this, BPHandler);
+                // TODO: Make better connection handles
                 if (success) {
                     logger.log(Level.INFO, "BP connection success.");
                 } else {
@@ -106,6 +117,7 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // jump to audio intake page when clicked
         if (binding.buttonMicrophone != null) {
             binding.buttonMicrophone.setOnClickListener(v -> {
                 Intent intent = new Intent(MeasureActivity.this, AudioActivity.class);
@@ -113,6 +125,7 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // jump to camera intake page when clicked
         if (binding.buttonFlashCamera != null) {
             binding.buttonFlashCamera.setOnClickListener(v -> {
                 Intent intent = new Intent(MeasureActivity.this, CameraActivity.class);
@@ -120,6 +133,7 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // jump to seek camera app when clicked
         if (binding.buttonIR != null) {
             binding.buttonIR.setOnClickListener(v -> {
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.seeksimple");
@@ -131,6 +145,7 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // record data and jump to result page when clicked
         if (binding.buttonMeasureResults != null) {
             binding.buttonMeasureResults.setOnClickListener(v -> {
                 try {
@@ -165,6 +180,7 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // jump to result page when clicked
         if (binding.buttonDisplayResults != null) {
             binding.buttonDisplayResults.setOnClickListener(v -> {
                 Intent intent = new Intent(MeasureActivity.this, ResultActivity.class);
@@ -172,6 +188,8 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // determine which way to get hr data
+        // TODO: there should be an enum for all the states
         if (binding.spinnerHeartRate != null) {
             binding.spinnerHeartRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -208,6 +226,8 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // determine which way to get respiratory rate data
+        // TODO: there should be an enum for all the states
         if (binding.spinnerRespiratoryRate != null) {
             binding.spinnerRespiratoryRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -244,6 +264,8 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // determine which way to get systolic blood pressure data
+        // TODO: there should be an enum for all the states
         if (binding.spinnerSystolicPressure != null) {
             binding.spinnerSystolicPressure.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -273,6 +295,8 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // determine which way to get diastolic blood pressure data
+        // TODO: there should be an enum for all the states
         if (binding.spinnerDiastolicPressure != null) {
             binding.spinnerDiastolicPressure.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -302,6 +326,8 @@ public class MeasureActivity extends AppCompatActivity {
             });
         }
 
+        // determine which way to get spo2 data
+        // TODO: there should be an enum for all the states
         if (binding.spinnerSpO2 != null) {
             binding.spinnerSpO2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -332,6 +358,7 @@ public class MeasureActivity extends AppCompatActivity {
         }
     }
 
+    // initialization
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -353,6 +380,7 @@ public class MeasureActivity extends AppCompatActivity {
         }
     }
 
+    // handler for incoming data
     final Handler BHHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -374,6 +402,7 @@ public class MeasureActivity extends AppCompatActivity {
         }
     };
 
+    // handler for incoming data
     final Handler SPO2Handler = new Handler() {
 
         @Override
@@ -388,6 +417,7 @@ public class MeasureActivity extends AppCompatActivity {
         }
     };
 
+    // handler for incoming data
     final Handler BPHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

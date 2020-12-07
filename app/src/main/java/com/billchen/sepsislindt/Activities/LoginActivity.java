@@ -29,23 +29,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private UserDao userDao;
 
-    /*static {
-        System.loadLibrary("get-predict");
-    }
-
-    private native double getPredict(double[] data);*/
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        //double[] data = {63, 21, 129, 90, 95, 100.10, 64, 29, 145, 40, 96, 100.10, 60, 31, 159, 51, 96,
-        //        100.10, 63, 29, 155, 42, 96, 100.10, 1, -4, 3, 8, 2, -2, 1, -4, 3, 1, -4, 3, 1, -4, 3, 1, -4, 3};
-
-
-        // set up date binding
+        // set up data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         // set up database for user
@@ -64,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             autoLogin(username, password);
         }).start();
 
+        // TODO: email and password are not encrypted
         // when the login button is clicked, pass email and password for verification
         if (binding.loginButton != null) {
             binding.loginButton.setOnClickListener(v -> {
@@ -75,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
 
+        // TODO: email and password are not encrypted
         // when the register button is clicked, pass email and password for registration
         if (binding.createButton != null) {
             binding.createButton.setOnClickListener(v -> {
@@ -116,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                 }, e -> {});
-    };
+    }
 
     // check if login info is valid
     private void login(String username, String password) {

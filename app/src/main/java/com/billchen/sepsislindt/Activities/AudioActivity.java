@@ -24,9 +24,10 @@ public class AudioActivity extends AppCompatActivity {
 
     private static Logger logger = Logger.getLogger("AudioActivity");
 
+    // Data binding with activity_audio.xml
     private ActivityAudioBinding binding;
 
-    //Audio Related
+    // Audio related variables
     private final int MY_PERMISSIONS_RECORD_AUDIO = 1;
     private static final int RECORDER_SAMPLERATE = 8000;
     private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
@@ -41,9 +42,11 @@ public class AudioActivity extends AppCompatActivity {
 
 
     static {
+        // Load the C library from ./cpp/get_result/main.c
         System.loadLibrary("get-result");
     }
 
+    // Implementation at ./cpp/get_result/main.c
     private native double getResult(double[] array, double fs, boolean flag);
 
 
@@ -56,12 +59,10 @@ public class AudioActivity extends AppCompatActivity {
         // UI bindings
         binding = DataBindingUtil.setContentView(this, R.layout.activity_audio);
 
-        // Audio Recording
+        // Connect buttons to listeners
         setButtonHandlers();
+        // Toggle Start and Stop buttons
         enableButtons(false);
-
-        int bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,
-                RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
     }
 
     private void setButtonHandlers() {
@@ -69,17 +70,10 @@ public class AudioActivity extends AppCompatActivity {
         binding.btnStop.setOnClickListener(btnClick);
     }
 
-    private void enableButton(int id, boolean isEnable) {
-        findViewById(id).setEnabled(isEnable);
-    }
-
-    private void enableButtons(boolean isRecording) {
-        enableButton(R.id.btnStart, !isRecording);
-        enableButton(R.id.btnStop, isRecording);
-    }
-
+    // Start recording and store to the ArrayList data
     private void startRecording() {
 
+        // Check if the app has permission to record audio samples
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_RECORD_AUDIO);
         }
@@ -90,22 +84,21 @@ public class AudioActivity extends AppCompatActivity {
 
         recorder.startRecording();
         isRecording = true;
-        recordingThread = new Thread(new Runnable() {
-            public void run() {
-                short[] sData = new short[BufferElements2Rec];
-                data.clear();
-                while (isRecording) {
-                    // gets the voice output from microphone to byte format
-                    recorder.read(sData, 0, BufferElements2Rec);
-                    for (short i: sData) {
-                        data.add((double) i);
-                    }
+        recordingThread = new Thread(() -> {
+            short[] sData = new short[BufferElements2Rec];
+            data.clear();
+            while (isRecording) {
+                // gets the voice output from microphone to byte format
+                recorder.read(sData, 0, BufferElements2Rec);
+                for (short i: sData) {
+                    data.add((double) i);
                 }
             }
         }, "AudioRecorder Thread");
         recordingThread.start();
     }
 
+    // Stop recording, calculate the breathing rate, and return to MeasureActivity
     private void stopRecording() {
         // stops the recording activity
         if (null != recorder) {
@@ -115,37 +108,43 @@ public class AudioActivity extends AppCompatActivity {
             recorder = null;
             recordingThread = null;
 
+            // prepare the data to be read by C code
             double[] jdata = new double[data.size()];
             int idx = 0;
             for (double data_i: data) {
                 jdata[idx++] = data_i;
             }
 
+            // run C code to get breathing rate
             double result = getResult(jdata, RECORDER_SAMPLERATE, false);
+
+            // go back to MeasureActivity with result stored in intent
             Intent intent = new Intent(AudioActivity.this, MeasureActivity.class);
             intent.putExtra("breathing", result);
             startActivity(intent);
             finish();
 
-
-
         }
     }
 
-    private View.OnClickListener btnClick = new View.OnClickListener() {
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btnStart: {
-                    enableButtons(true);
-                    startRecording();
-                    break;
-                }
-                case R.id.btnStop: {
-                    enableButtons(false);
-                    stopRecording();
-                    break;
-                }
+    private View.OnClickListener btnClick = v -> {
+        switch (v.getId()) {
+            case R.id.btnStart: {
+                enableButtons(true);
+                startRecording();
+                break;
+            }
+            case R.id.btnStop: {
+                enableButtons(false);
+                stopRecording();
+                break;
             }
         }
     };
+
+
+    private void enableButtons(boolean isRecording) {
+        binding.btnStart.setEnabled(!isRecording);
+        binding.btnStop.setEnabled(isRecording);
+    }
 }

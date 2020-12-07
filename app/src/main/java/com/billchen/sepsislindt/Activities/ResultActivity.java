@@ -36,10 +36,12 @@ public class ResultActivity extends AppCompatActivity {
 
     double result = -100;
 
+    // load C++ library
     static {
         System.loadLibrary("get-predict");
     }
 
+    // C++ native method
     private native double getPredict(double[] data);
 
     @Override
@@ -47,12 +49,15 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        // set up data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_result);
 
+        // get stored login data
         sharedPref = this.getSharedPreferences(
                 "user", Context.MODE_PRIVATE
         );
 
+        // prepare database
         dataDatabase = DataDatabase.getInstance(this);
         dataDao = dataDatabase.dataDao();
 
@@ -76,6 +81,7 @@ public class ResultActivity extends AppCompatActivity {
                 tempArray.add(data.temperature);
             }
 
+            // format data
             if (hrArray.size() >= 4) {
                 double[] jdata = new double[42];
                 int idx = 0;
@@ -145,6 +151,7 @@ public class ResultActivity extends AppCompatActivity {
                     jdata[idx++] = tempdiff;
                 }
 
+                // get prediction result
                 double _result = getPredict(jdata);
                 if (_result == 1) {
                     binding.textViewResult.setText("Probability of Sepsis: High");
@@ -158,6 +165,7 @@ public class ResultActivity extends AppCompatActivity {
                 binding.textViewResult.setTextColor(Color.GRAY);
             }
 
+            // prepare data for display
             DataPoint[] hr_data = new DataPoint[hrArray.size()];
             DataPoint[] resp_data = new DataPoint[respArray.size()];
             DataPoint[] sys_data = new DataPoint[sysArray.size()];
@@ -173,6 +181,8 @@ public class ResultActivity extends AppCompatActivity {
                 spo2_data[i] = new DataPoint(i, spo2Array.get(i));
                 temp_data[i] = new DataPoint(i, tempArray.get(i));
             }
+
+            // add data points to the graph
             binding.hrGraph.addSeries(new LineGraphSeries<>(hr_data));
             binding.respGraph.addSeries(new LineGraphSeries<>(resp_data));
             binding.sysGraph.addSeries(new LineGraphSeries<>(sys_data));
